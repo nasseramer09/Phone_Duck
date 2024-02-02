@@ -1,8 +1,10 @@
 package com.example.phone_duck.Model;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
-import lombok.extern.java.Log;
-
+@Entity
 public class Channel {
+    @Id
     private Long id;
     private String title;
     public Long getId() {

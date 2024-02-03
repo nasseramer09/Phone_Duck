@@ -3,10 +3,7 @@ package com.example.phone_duck.Controller;
 import com.example.phone_duck.Model.Channel;
 import com.example.phone_duck.Services.ChannelServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,6 +32,12 @@ public class ChannelController {
     @GetMapping("/search/messageContent/{messageContent}")
     public Channel getChannelByMessageContent(@PathVariable String messageContent){
         return channelServices.getChannelByMessageContent(messageContent);
+    }
+
+    @PostMapping
+    public String createNewChannel(@RequestBody Channel channel){
+        channelServices.creat(channel);
+        return "Channel created successfully";
     }
 
 

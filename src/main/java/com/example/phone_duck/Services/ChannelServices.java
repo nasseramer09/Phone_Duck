@@ -9,11 +9,12 @@ import java.util.List;
 
 @Service
 public class ChannelServices {
-    private  ChannelRepo channelRepo;
     @Autowired
-    public ChannelServices(ChannelRepo channelRepo){
+    private  ChannelRepo channelRepo;
+
+   /* public ChannelServices(ChannelRepo channelRepo){
        this.channelRepo=channelRepo;
-   }
+   }*/
 
     public List<Channel>getAll(){
         return channelRepo.findAll();

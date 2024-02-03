@@ -9,6 +9,4 @@ public interface ChannelRepo extends JpaRepository<Channel, Long> {
     Channel findChannelById(Long id);
     Channel findChannelByTitle(String title);
     Channel findChannelByMessageContent(String messageContent);
-
-
 }

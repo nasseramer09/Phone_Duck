@@ -5,8 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ChannelRepo extends JpaRepository<Channel, Long> {
+public interface ChannelRepository extends JpaRepository<Channel, Long> {
     Channel findChannelById(Long id);
     Channel findChannelByTitle(String title);
-    Channel findChannelByMessageContent(String messageContent);
 }

@@ -29,11 +29,6 @@ public class ChannelController {
         return channelServices.getChannelByTitle(title);
     }
 
-    @GetMapping("/search/messageContent/{messageContent}")
-    public Channel getChannelByMessageContent(@PathVariable String messageContent){
-        return channelServices.getChannelByMessageContent(messageContent);
-    }
-
     @PostMapping
     public String createNewChannel(@RequestBody Channel channel){
         channelServices.creat(channel);

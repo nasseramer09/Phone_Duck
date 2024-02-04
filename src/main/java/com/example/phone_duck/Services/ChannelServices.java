@@ -1,6 +1,6 @@
 package com.example.phone_duck.Services;
 import com.example.phone_duck.Model.Channel;
-import com.example.phone_duck.Repository.ChannelRepo;
+import com.example.phone_duck.Repository.ChannelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,29 +9,26 @@ import java.util.List;
 @Service
 public class ChannelServices {
 
-    private ChannelRepo channelRepo;
+    private  ChannelRepository channelRepository;
     @Autowired
-   public ChannelServices(ChannelRepo channelRepo){
-       this.channelRepo=channelRepo;
+   public ChannelServices(ChannelRepository channelRepository){
+       this.channelRepository = channelRepository;
    }
 
     public List<Channel>getAll(){
-        return channelRepo.findAll();
+        return channelRepository.findAll();
     }
 
     public void creat(Channel channel){
-        channelRepo.save(channel);
+        channelRepository.save(channel);
     }
 
     public Channel getChannelById(Long id){
-        return channelRepo.findChannelById(id);
+        return channelRepository.findChannelById(id);
     }
 
     public Channel getChannelByTitle(String title){
-        return channelRepo.findChannelByTitle(title);
+        return channelRepository.findChannelByTitle(title);
     }
 
-    public Channel getChannelByMessageContent(String messageContent){
-        return channelRepo.findChannelByMessageContent(messageContent);
-    }
 }

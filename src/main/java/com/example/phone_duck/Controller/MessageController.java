@@ -13,7 +13,7 @@ public class MessageController {
     @Autowired
     private MessageServices messageServices;
 
-    @GetMapping("/messages")
+    @GetMapping
     public List<Message>getAll(){
         return messageServices.getAll();
     }
@@ -30,5 +30,11 @@ public class MessageController {
     @PostMapping
     public String createMessage(@RequestBody Message message){
         messageServices.create(message);
-        return "message created successfully";    }
+        return "message created successfully";
+    }
+    @DeleteMapping("/{id}")
+    public String deleteMessage(Long id){
+        messageServices.deleteMessage(id);
+        return "Message has been deleted successfully";
+    }
 }

@@ -31,4 +31,7 @@ public class ChannelServices {
         return channelRepository.findChannelByTitle(title);
     }
 
+    public void deleteChannel(Long id){
+        channelRepository.deleteById(id);
+    }
 }

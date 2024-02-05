@@ -15,7 +15,7 @@ public class ChatRoomController {
     @Autowired
     private ChatRoomServices chatRoomServices;
 
-    @GetMapping("/chatRooms")
+    @GetMapping
     public List<ChatRoom>getAll(){
         return chatRoomServices.getAll();
     }
@@ -34,6 +34,12 @@ public class ChatRoomController {
     public String createChatRoom(@RequestBody ChatRoom chatRoom){
         chatRoomServices.create(chatRoom);
         return "ChatRoom created successfully";
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteChatRoom(@PathVariable Long id){
+        chatRoomServices.deleteChatRoom(id);
+        return "ChatRoom has been deletes successfully";
     }
 
 

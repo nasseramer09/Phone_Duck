@@ -14,8 +14,8 @@ public class ChannelController {
     @Autowired
     private ChannelServices channelServices;
 
-    @GetMapping("/channels")
-    public List<Channel>getAllChannels(){
+    @GetMapping
+    public List<Channel> getAll(){
         return channelServices.getAll();
     }
 
@@ -34,6 +34,10 @@ public class ChannelController {
         channelServices.creat(channel);
         return "Channel created successfully";
     }
-
+    @DeleteMapping("/{id}")
+    public String deleteChannel(@PathVariable Long id){
+        channelServices.deleteChannel(id);
+        return "Channel has being deleted successfully";
+ }
 
 }

@@ -30,5 +30,9 @@ public class MessageServices {
     public Message getMessageByMessageContent(String content){
         return messageRepository.findMessageByMessageContent(content);
     }
+
+    public void deleteMessage(Long id){
+        messageRepository.deleteById(id);
+    }
 }
 

@@ -27,4 +27,9 @@ public class ChatRoomServices {
     public ChatRoom getChatRoomByTitle(String title){
         return chatRoomRepository.findChatRoomByTitle(title);
     }
+    public void deleteChatRoom(Long id){
+        chatRoomRepository.deleteById(id);
+    }
+
+
 }

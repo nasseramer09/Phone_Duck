@@ -1,4 +1,4 @@
-package com.example.phone_duck.Services;
+/*package com.example.phone_duck.Services;
 
 import com.example.phone_duck.Model.Message;
 import com.example.phone_duck.Repository.MessageRepository;
@@ -35,4 +35,4 @@ public class MessageServices {
         messageRepository.deleteById(id);
     }
 }
-
+*/

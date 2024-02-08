@@ -1,4 +1,4 @@
-package com.example.phone_duck.Controller;
+/*package com.example.phone_duck.Controller;
 
 import com.example.phone_duck.Model.Message;
 import com.example.phone_duck.Services.MessageServices;
@@ -42,4 +42,4 @@ public class MessageController {
         messageServices.deleteMessage(id);
         return "Message has been deleted successfully";
     }
-}
+}*/

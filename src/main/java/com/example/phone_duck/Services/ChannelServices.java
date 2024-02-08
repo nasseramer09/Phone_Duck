@@ -20,7 +20,11 @@ public class ChannelServices {
    }
 
     public List<Channel>getAll(){
-        return channelRepository.findAll();
+        List<Channel>channels=channelRepository.findAll();
+        for (Channel channel:channels){
+            channel.setMessages(null);
+        }
+        return channels;
     }
 
     public void creat(Channel channel){

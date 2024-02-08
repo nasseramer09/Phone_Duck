@@ -25,6 +25,16 @@ public class ChannelController {
         }
         return ResponseEntity.ok(channels);
     }
+
+    //To get a channel and messages in it based on id
+    @GetMapping("/{id}")
+    public ResponseEntity<Channel> getAllMessageSInChannel(@PathVariable Long id){
+        Channel channel = channelServices.getAllMessagesInChannel(id);
+        if (channel==null){
+            ResponseEntity.notFound().build();}
+
+        return ResponseEntity.ok(channel);
+    }
     @PostMapping()
     public ResponseEntity<String> createNewChannel(@RequestBody Channel channel){
         try {
@@ -36,9 +46,14 @@ public class ChannelController {
         }
     }
     @DeleteMapping("/{id}")
-    public String deleteChannel(@PathVariable Long id){
-        channelServices.deleteChannel(id);
-        return "Channel deleted successfully";
+    public ResponseEntity< String> deleteChannel(@PathVariable Long id){
+        try {
+            channelServices.deleteChannel(id);
+            return ResponseEntity.ok("Channel deleted successfully");
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something occurred while deleting channel ");
+        }
  }
 
     @PatchMapping("/{id}")
@@ -56,16 +71,5 @@ public class ChannelController {
            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong while creating message in channel");
        }
     }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Channel> getAllMessageSInChannel(@PathVariable Long id){
-        Channel channel = channelServices.getAllMessagesInChannel(id);
-        if (channel==null){
-            ResponseEntity.notFound().build();}
-
-        return ResponseEntity.ok(channel);
-    }
-
-
 
 }

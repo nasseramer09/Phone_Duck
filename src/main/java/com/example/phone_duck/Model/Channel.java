@@ -14,9 +14,7 @@ public class Channel {
     private Long id;
     @Getter
     private String title;
-    //A message only belongs to a channel
-    @JsonIgnore
-    @OneToMany(mappedBy = "channel")
+    @OneToMany(mappedBy = "channel",targetEntity = Message.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Message> messages;
 
 }

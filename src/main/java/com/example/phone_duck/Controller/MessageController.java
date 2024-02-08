@@ -3,6 +3,7 @@ package com.example.phone_duck.Controller;
 import com.example.phone_duck.Model.Message;
 import com.example.phone_duck.Services.MessageServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,8 +15,12 @@ public class MessageController {
     private MessageServices messageServices;
 
     @GetMapping
-    public List<Message>getAll(){
-        return messageServices.getAll();
+    public ResponseEntity<List<Message>>getAll(){
+        List<Message> messages=messageServices.getAll();
+        if (messages.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(messages);
     }
     @GetMapping("/search/id/{id}")
     public Message getMessageById(@PathVariable Long id){

@@ -17,28 +17,22 @@ public class ChannelController {
     @Autowired
     private ChannelServices channelServices;
 
-    @GetMapping
-    public List<Channel> getAll(){
-        return channelServices.getAll();
+    @GetMapping("/channels")
+    public ResponseEntity< List<Channel>> getAll(){
+        List<Channel> channels=channelServices.getAll();
+        if (channels.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(channels);
     }
-
-    @GetMapping("/search/id/{id}")
-    public Channel getChannelById(@PathVariable Long id){
-        return channelServices.getChannelById(id);
-    }
-
-    @GetMapping("/search/title/{title}")
-    public Channel getChannelByTitle(@PathVariable String title){
-        return channelServices.getChannelByTitle(title);
-    }
-
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<String> createNewChannel(@RequestBody Channel channel){
         try {
             channelServices.creat(channel);
             return ResponseEntity.status(HttpStatus.CREATED).body("Channel created successfully");
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Problem accured creating channel");
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Problem occurred during creating channel");
         }
     }
     @DeleteMapping("/{id}")
@@ -48,20 +42,28 @@ public class ChannelController {
  }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<String>updateChannelTitle(@PathVariable Long id, @RequestBody Channel uppdateChannelTitle){
-        channelServices.updateChannel(id, uppdateChannelTitle);
+    public ResponseEntity<String>updateChannelTitle(@PathVariable Long id, @RequestBody Channel updateChannelTitle){
+        channelServices.updateChannel(id, updateChannelTitle);
         return ResponseEntity.ok("Channel title updated successfully");
  }
 
-    @PutMapping("/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<String>createNewMessage(@PathVariable Long id, @RequestBody Message neweMessage){
-        channelServices.putNewMessage(id, neweMessage);
-        return ResponseEntity.ok("New message created successfully");
+       try {
+           channelServices.putNewMessage(id, neweMessage);
+           return ResponseEntity.status(HttpStatus.CREATED).body(" Message created successfully ");
+       } catch (Exception e){
+           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong while creating message in channel");
+       }
     }
 
-    @GetMapping("/{id}/messages")
-    public List<Message> getAllMessageSInChannel(@PathVariable Long id){
-        return channelServices.getAllMessagesInChannel(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<Channel> getAllMessageSInChannel(@PathVariable Long id){
+        Channel channel = channelServices.getAllMessagesInChannel(id);
+        if (channel==null){
+            ResponseEntity.notFound().build();}
+
+        return ResponseEntity.ok(channel);
     }
 
 

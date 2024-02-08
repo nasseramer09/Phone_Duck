@@ -2,6 +2,7 @@ package com.example.phone_duck.Services;
 import com.example.phone_duck.Model.Channel;
 import com.example.phone_duck.Model.Message;
 import com.example.phone_duck.Repository.ChannelRepository;
+import com.example.phone_duck.Repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +12,11 @@ import java.util.List;
 public class ChannelServices {
 
     private  ChannelRepository channelRepository;
+    private MessageRepository messageRepository;
     @Autowired
-   public ChannelServices(ChannelRepository channelRepository){
+   public ChannelServices(ChannelRepository channelRepository, MessageRepository messageRepository){
        this.channelRepository = channelRepository;
+       this.messageRepository=messageRepository;
    }
 
     public List<Channel>getAll(){
@@ -26,10 +29,6 @@ public class ChannelServices {
 
     public Channel getChannelById(Long id){
         return channelRepository.findChannelById(id);
-    }
-
-    public Channel getChannelByTitle(String title){
-        return channelRepository.findChannelByTitle(title);
     }
 
     public void deleteChannel(Long id){
@@ -50,10 +49,10 @@ public class ChannelServices {
         newMessage.setChannel(curentChannel);
         curentChannel.getMessages().add(newMessage);
         channelRepository.save(curentChannel);
+        messageRepository.save(newMessage);
     }
 
-    public List<Message> getAllMessagesInChannel(Long id) {
+    public Channel getAllMessagesInChannel(Long id) {
         Channel channel = channelRepository.findChannelById(id);
-        return channel.getMessages();
-    }
+        return channel;}
 }

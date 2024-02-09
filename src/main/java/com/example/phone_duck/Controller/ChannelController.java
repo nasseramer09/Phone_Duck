@@ -35,6 +35,7 @@ public class ChannelController {
 
         return ResponseEntity.ok(channel);
     }
+
     @PostMapping()
     public ResponseEntity<String> createNewChannel(@RequestBody Channel channel){
         try {
@@ -45,6 +46,7 @@ public class ChannelController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Problem occurred during creating channel");
         }
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity< String> deleteChannel(@PathVariable Long id){
         try {
@@ -55,6 +57,7 @@ public class ChannelController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something occurred while deleting channel ");
         }
      }
+
      @DeleteMapping("messages/{id}")
      public ResponseEntity<String>deleteMessage(@PathVariable Long id){
         try {

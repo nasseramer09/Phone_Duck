@@ -3,7 +3,6 @@ import com.example.phone_duck.Model.Channel;
 import com.example.phone_duck.Model.Message;
 import com.example.phone_duck.Repository.ChannelRepository;
 import com.example.phone_duck.Repository.MessageRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,17 +31,12 @@ public class ChannelServices {
         channelRepository.save(channel);
     }
 
-    public Channel getChannelById(Long id){
-        return channelRepository.findChannelById(id);
-    }
-
     public void deleteChannel(Long id){
         channelRepository.deleteById(id);
     }
 
     public void updateChannel(Long id, Channel updateChannelTitle){
         Channel curentChannel=channelRepository.findChannelById(id);
-
         if (updateChannelTitle.getTitle()!=null){
             curentChannel.setTitle(updateChannelTitle.getTitle());
         }
@@ -79,7 +73,5 @@ public class ChannelServices {
             channelRepository.save(channel);
             messageRepository.deleteById(id);
         }
-
-
     }
 }

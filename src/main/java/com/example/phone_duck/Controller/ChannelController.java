@@ -54,13 +54,32 @@ public class ChannelController {
         catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something occurred while deleting channel ");
         }
- }
+     }
+     @DeleteMapping("messages/{id}")
+     public ResponseEntity<String>deleteMessage(@PathVariable Long id){
+        try {
+            channelServices.deleteMessage(id);
+            return ResponseEntity.ok("Message deleted successfully");
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong while deleting message ");
+        }
+     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<String>updateChannelTitle(@PathVariable Long id, @RequestBody Channel updateChannelTitle){
         channelServices.updateChannel(id, updateChannelTitle);
         return ResponseEntity.ok("Channel title updated successfully");
- }
+    }
+
+    @PatchMapping("/messages/{id}")
+    public ResponseEntity<String>updateMessageContent(@PathVariable Long id, @RequestBody Message newMessageContent){
+        try {
+            channelServices.updateMessageContent(id, newMessageContent);
+            return ResponseEntity.ok("Message updated successfully");
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong while updating message content");
+        }
+    }
 
     @PutMapping("{id}")
     public ResponseEntity<String>createNewMessage(@PathVariable Long id, @RequestBody Message neweMessage){

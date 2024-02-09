@@ -3,6 +3,7 @@ import com.example.phone_duck.Model.Channel;
 import com.example.phone_duck.Model.Message;
 import com.example.phone_duck.Repository.ChannelRepository;
 import com.example.phone_duck.Repository.MessageRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,11 @@ public class ChannelServices {
    }
 
     public List<Channel>getAll(){
-        return channelRepository.findAll();
+        List<Channel>channels=channelRepository.findAll();
+        for (Channel channel:channels){
+            channel.setMessages(null);
+        }
+        return channels;
     }
 
     public void creat(Channel channel){
@@ -54,5 +59,27 @@ public class ChannelServices {
 
     public Channel getAllMessagesInChannel(Long id) {
         Channel channel = channelRepository.findChannelById(id);
-        return channel;}
+        return channel;
+    }
+
+    public void updateMessageContent(Long id, Message messageToUpdate){
+        Message curentMessage=messageRepository.findMessageById(id);
+
+        if (messageToUpdate.getMessageContent()!=null){
+            curentMessage.setMessageContent(messageToUpdate.getMessageContent());
+        }
+        messageRepository.save(curentMessage);
+    }
+
+    public void deleteMessage(Long id){
+        Message message = messageRepository.findMessageById(id);
+        if (message!=null){
+            Channel channel = message.getChannel();
+            channel.getMessages().remove(message);
+            channelRepository.save(channel);
+            messageRepository.deleteById(id);
+        }
+
+
+    }
 }
